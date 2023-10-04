@@ -3,12 +3,11 @@ package myApp.myApp.Controller;
 import myApp.myApp.Entity.User;
 import myApp.myApp.Entity.UserDto;
 import myApp.myApp.Service.UserService;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Controller
@@ -58,11 +57,23 @@ public class AuthController {
         return "login";
     }
 
-    @GetMapping("/users")
+    @GetMapping("/all-users")
     public String listRegisteredUsers(Model model){
         System.out.println("listRegisteredUsers");
         List<UserDto> users = userService.findAllUsers();
         model.addAttribute("users", users);
-        return "users";
+        return "all-users";
     }
+
+    @GetMapping("/vote")
+    public String showVotingPage(Model model){
+        System.out.println("vote");
+        return "vote";
+    }
+
+    @GetMapping("/homeLogged")
+    public String homeUser(Model model) {
+        return "homeLogged";
+    }
+
 }
