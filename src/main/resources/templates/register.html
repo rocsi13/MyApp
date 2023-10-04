@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{base::layout(~{::section})}">
+      th:replace="~{base::layout(~{::section})}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
@@ -71,7 +71,7 @@
                             <button
                                     class="btn btn-primary"
                                     type="submit">Submit</button>
-                            <span>Already registered? <a th:href="@{/login}">Login here</a></span>
+                            <span>Already registered? <a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login here</a></span>
                         </form>
                     </div>
                 </div>
