@@ -29,12 +29,13 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authorize) ->
                 authorize.requestMatchers("/register/**", "/index", "/login").permitAll()
                         .requestMatchers("/all-users", "/vote", "/homeLogged").authenticated()
+                        .anyRequest().authenticated()
         ).formLogin(
                 form -> form
                         .loginPage("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/homeLogged")
+                        .defaultSuccessUrl("/homeLogged", true)
                         .permitAll()
                         .failureUrl("/error")
         ).logout(
