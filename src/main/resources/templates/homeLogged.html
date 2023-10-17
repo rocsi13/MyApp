@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<section>
+    <div class="container" sec:authorize="hasAnyAuthority('ADMIN', 'USER')">
+        <table class="table table-light table-hover">
+            <thead class="table-light">
+            <tr>
+                <th>Full Name</th>
+                <th>Description</th>
+                <th>Number of votes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each = "candidate : ${candidates}">
+                <td th:text = "${candidate.fullNameCandidate}"></td>
+                <td th:text = "${candidate.description}"></td>
+                <td th:text="${candidate.noVotes}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

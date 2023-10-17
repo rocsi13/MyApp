@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::layout(~{::section})}" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Candidates</title>
+</head>
+<body>
+<section>
+  <div class="container" sec:authorize="hasAnyAuthority('ADMIN', 'USER')">
+    <div class="row col-md-10">
+      <h2>List of Registered Candidates</h2>
+    </div>
+    <div class="alert alert-info" role="alert" th:if="${message != null}">
+      <span th:text="${message}"></span>
+      <button aria-label="Close" class="btn-close" data-bs-dismiss="alert"
+              type="button"></button>
+    </div>
+
+    <form method="post" th:action="@{/all-candidates}">
+      <table class="table table-light table-hover">
+      <thead class="table-light">
+      <tr>
+        <th>Full Name</th>
+        <th>Description</th>
+        <th>Number of votes</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each = "candidate : ${candidates}">
+        <td th:text = "${candidate.fullNameCandidate}"></td>
+        <td th:text = "${candidate.description}"></td>
+        <td th:text="${candidate.noVotes}"></td>
+        <td>
+            <input type="radio" th:value="${candidate.idCandidate}" th:name="idCandidate">
+        </td>
+      </tr>
+      </tbody>
+    </table>
+      <button type="submit" class="btn btn-primary">Vote</button>
+    </form>
+  </div>
+
+</section>
+</body>
+</html>
