@@ -5,10 +5,11 @@ import myApp.myApp.Entity.User;
 import myApp.myApp.Entity.UserDto;
 import myApp.myApp.Repository.RoleRepository;
 import myApp.myApp.Repository.UserRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,14 +48,11 @@ public class UserServiceImpl implements UserService{
         UserDto userDto = new UserDto();
         userDto.setFullName(user.getFullName());
         userDto.setEmail(user.getEmail());
-        System.out.println("User DTO / Convert User to DTo");
-        System.out.println(userDto);
         return userDto;
     }
     @Override
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
-        System.out.println("Find All Users Service impl");
         return users.stream()
                 .map((user) -> convertEntityToDto(user))
                 .collect(Collectors.toList());
@@ -63,5 +61,11 @@ public class UserServiceImpl implements UserService{
         Role role = new Role();
         role.setName("ADMIN");
         return roleRepository.save(role);
+    }
+
+    public void updateUser(String email, User user) {
+        User existingUser = userRepository.findByEmail(email);
+        existingUser.setVoted(user.getVoted());
+        userRepository.save(existingUser);
     }
 }
