@@ -10,15 +10,17 @@ public class CustomUserDetails implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
     private String fullName;
+    private Boolean voted;
 
     public CustomUserDetails() {
     }
 
-    public CustomUserDetails(String email, String password, Collection<? extends GrantedAuthority> authorities, String fullName) {
+    public CustomUserDetails(String email, String password, Collection<? extends GrantedAuthority> authorities, String fullName, Boolean voted) {
         this.email = email;
         this.password = password;
         this.authorities = authorities;
         this.fullName = fullName;
+        this.voted = voted;
     }
     public String getFullName() {
         return fullName;
@@ -42,6 +44,8 @@ public class CustomUserDetails implements UserDetails {
     public String getEmail() {
         return email;
     }
+
+    public Boolean getVoted() {return voted;}
 
     @Override
     public boolean isAccountNonExpired() {
