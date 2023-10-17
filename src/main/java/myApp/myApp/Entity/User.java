@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name="users")
-public class User {
+public class User extends UserDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +25,10 @@ public class User {
     private String email;
     @Column(nullable=false)
     private String password;
+
+    @Column(nullable = false)
+    private Boolean voted = false;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.MERGE)
     @JoinTable(
             name="users_roles",
